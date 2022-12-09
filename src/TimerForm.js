@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import {HMSTosec} from './tools'
+import './TimerForm.css'
 
 
 class TimerForm extends Component {
@@ -37,27 +38,38 @@ class TimerForm extends Component {
 
   render() {
     return (
-      <div>
-        <div className='row'>
-          <p>h:</p>
-          <input type='number' min={0} placeholder={this.time.h} onChange={event => this.time.h = event.target.value}></input>
-          <p>m:</p>
-          <input type='number' min={0} placeholder={this.time.m} onChange={event => this.time.m = event.target.value}></input>
-          <p>s:</p>
-          <input type='number' min={0} placeholder={this.time.s} onChange={event => this.time.s = event.target.value}></input>
-        </div>
+      <div className='time-form'>
+        <div className='time-fields'>
+          <div className='spread'>
+            <p>h:   </p>
+            <input type='number' min={0} placeholder={this.time.h} onChange={event => this.time.h = event.target.value}></input>
+          </div>
+          <div className='spread'>
+            <p>m:   </p>
+            <input type='number' min={0} placeholder={this.time.m} onChange={event => this.time.m = event.target.value}></input>
+          </div>
+          <div className='spread'>
+            <p>s:   </p>
+            <input type='number' min={0} placeholder={this.time.s} onChange={event => this.time.s = event.target.value}></input>
+          </div>
         <br />
+        <hr />
+        </div>
         <br />
         <div>
-          <p>price:</p>
-        <input type='number' min={0} placeholder={this.pricePerInterval} onChange={event => this.pricePerInterval = event.target.value}></input>
+          <p>price:   </p>
+          <br />  
+          <input type='number' min={0} placeholder={this.pricePerInterval} onChange={event => this.pricePerInterval = event.target.value}></input>
+          <br />
+          <br />
+          <br />
 
+          <hr />
         </div>
+        
         <br />
         <br />
-        <br />
-        <br />
-        <button onClick={() => this.validateInput()}>click me</button>
+        <button className='open-timer' onClick={() => this.validateInput()}>Open Timer</button>
       </div>
     )
   }

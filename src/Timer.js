@@ -12,7 +12,7 @@ class Timer extends Component {
 
     this.state = {
       seconds: 0,
-      isTimerRunning: true,
+      isTimerRunning: false,
     };
 
   }
