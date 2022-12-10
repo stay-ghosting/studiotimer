@@ -1,3 +1,15 @@
 .timer{
   margin:auto;
 }
+
+.buttons button{
+  margin: 0 2px;
+}
+
+.buttons {
+  padding-top:10px;
+}
+.button-icon{
+  height: 24px;
+  width: 22px;
+}

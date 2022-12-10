@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import {HMSTosec} from './tools'
+import {HMSTosec, getTimeFormated} from './tools'
 import './TimerForm.css'
 
 
@@ -36,21 +36,26 @@ class TimerForm extends Component {
     this.props.setConfirmed(true)
   }
 
+  componentDidMount() {
+
+  }
+
   render() {
     return (
       <div className='time-form'>
+          <p>{`£${this.pricePerInterval}/${getTimeFormated(HMSTosec(this.time), false)}`}</p>
         <div className='time-fields'>
           <div className='spread'>
             <p>h:   </p>
-            <input type='number' min={0} placeholder={this.time.h} onChange={event => this.time.h = event.target.value}></input>
+            <input type='number' min={0} defaultValue={this.time.h} onChange={event => this.time.h = event.target.value}></input>
           </div>
           <div className='spread'>
             <p>m:   </p>
-            <input type='number' min={0} placeholder={this.time.m} onChange={event => this.time.m = event.target.value}></input>
+            <input type='number' min={0} defaultValue={this.time.m} onChange={event => this.time.m = event.target.value}></input>
           </div>
           <div className='spread'>
             <p>s:   </p>
-            <input type='number' min={0} placeholder={this.time.s} onChange={event => this.time.s = event.target.value}></input>
+            <input type='number' min={0} defaultValue={this.time.s} onChange={event => this.time.s = event.target.value}></input>
           </div>
         <br />
         <hr />
@@ -59,7 +64,7 @@ class TimerForm extends Component {
         <div>
           <p>price:   </p>
           <br />  
-          <input type='number' min={0} placeholder={this.pricePerInterval} onChange={event => this.pricePerInterval = event.target.value}></input>
+          <input type='number' min={0} defaultValue={this.pricePerInterval} onChange={event => this.pricePerInterval = event.target.value}></input>
           <br />
           <br />
           <br />
