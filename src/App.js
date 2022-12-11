@@ -1,29 +1,19 @@
 import './App.css';
 import Timer from './Timer'
-import TimerForm from './TimerForm'
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
 function App() {
-  const [confirmed, setConfirmed] = useState(false);
-  const [pricePerinterval, setPricePerinterval] = useState(false);
-  const [secondsPerPayment, setSecondsPerPayment] = useState(false);
+  
+  // const [confirmed, setConfirmed] = useState(false);
+  // const [pricePerinterval, setPricePerinterval] = useState(false);
+  // const [secondsPerPayment, setSecondsPerPayment] = useState(false);
 
-
-  if (confirmed) {
-    return (
-      <div>
-        <h1>SESSION TIMER</h1>
-        <Timer pricePerinterval={pricePerinterval} secondsPerPayment={secondsPerPayment}/>
-      </div>
-    );
-  } else {
-    return (
-      <div>
-        <h1>SESSION TIMER</h1>
-        <TimerForm setConfirmed={setConfirmed} setPricePerinterval={setPricePerinterval} setSecondsPerPayment={setSecondsPerPayment}/>
-      </div>
-    );
-  }
+  return (
+    <div>
+      <h1>SESSION TIMER</h1>
+      <Timer/>
+    </div>
+  );
 }
 
 export default App;

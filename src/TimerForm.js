@@ -22,7 +22,6 @@ class TimerForm extends Component {
   }
 
   validateInput() {
-
     const HMSFloor = {}
     Object.entries(this.state.time).map(([key, value]) => HMSFloor[key] = Math.floor(value))
     // if no values have been entered stop method
@@ -36,10 +35,6 @@ class TimerForm extends Component {
     this.props.setSecondsPerPayment(timeSeconds)
     this.props.setPricePerinterval(this.state.pricePerInterval)
     this.props.setConfirmed(true)
-  }
-
-  componentDidMount() {
-
   }
 
   render() {
