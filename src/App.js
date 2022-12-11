@@ -12,14 +12,14 @@ function App() {
   if (confirmed) {
     return (
       <div>
-        <h1>STUDIO TIMER</h1>
+        <h1>SESSION TIMER</h1>
         <Timer pricePerinterval={pricePerinterval} secondsPerPayment={secondsPerPayment}/>
       </div>
     );
   } else {
     return (
       <div>
-        <h1>STUDIO TIMER</h1>
+        <h1>SESSION TIMER</h1>
         <TimerForm setConfirmed={setConfirmed} setPricePerinterval={setPricePerinterval} setSecondsPerPayment={setSecondsPerPayment}/>
       </div>
     );

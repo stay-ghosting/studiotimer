@@ -64,7 +64,7 @@ class TimerForm extends Component {
           
           <hr />
         </div>
-        <button className='open-timer' onClick={() => this.validateInput()}>Open Timer</button>
+        <button className='open-timer' onClick={() => this.validateInput()}>Start Session</button>
       </div>
     )
   }
