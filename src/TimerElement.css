@@ -1,4 +1,9 @@
+.inner-timer{
+  margin:auto;
+}
+
 .timer{
+  width: 350px;
   margin:auto;
 }
 

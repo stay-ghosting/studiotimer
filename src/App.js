@@ -1,6 +1,6 @@
 import './App.css';
-import Timer from './Timer'
 import React, { useState } from 'react';
+import TimerElement from './TimerElement';
 
 function App() {
   
@@ -11,7 +11,7 @@ function App() {
   return (
     <div>
       <h1>SESSION TIMER</h1>
-      <Timer/>
+      <TimerElement />
     </div>
   );
 }
