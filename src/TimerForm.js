@@ -1,23 +1,19 @@
 import React, { Component } from "react"
-import { HMSTosec, getTimeFormated } from './tools'
+import { HMSTosec, getTimeFormated, secToHMS } from './tools'
 import './TimerForm.css'
 
 
 class TimerForm extends Component {
   constructor(props) {
-    super();
+    super(props);
 
     this.setConfirmed = props.setConfirmed;
-    this.setPricePerinterval = props.setPricePerinterval
-    this.setSecondsPerPayment = props.setSecondsPerPayment
+    this.setPricePerinterval = props.setPricePerinterval;
+    this.setSecondsPerPayment = props.setSecondsPerPayment;
 
     this.state = {
-      time: {
-        h: 1,
-        m: 0,
-        s: 0,
-      },
-      pricePerInterval: 10.0
+      time: secToHMS(this.props.secondsPerPayment),
+      pricePerInterval: this.props.pricePerinterval,
     }
   }
 

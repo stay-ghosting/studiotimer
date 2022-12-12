@@ -1,4 +1,4 @@
-import { Component, useState } from 'react';
+import { Component } from 'react';
 import TimerForm from './TimerForm';
 import InnerTimer from './InnerTimer';
 import { CircularProgressbarWithChildren } from 'react-circular-progressbar';
@@ -18,7 +18,7 @@ class TimerElement extends Component {
       seconds: 0,
       isTimerRunning: false,
       confirmed: false,
-      pricePerinterval: 10.0,
+      pricePerinterval: 8,
       secondsPerPayment: 3600,
     }
 
@@ -107,6 +107,8 @@ class TimerElement extends Component {
               </>
               :
               <TimerForm
+                pricePerinterval={this.state.pricePerinterval}
+                secondsPerPayment={this.state.secondsPerPayment}
                 setConfirmed={value => this.setState({ confirmed: value })}
                 setPricePerinterval={value => this.setState({ pricePerinterval: value })}
                 setSecondsPerPayment={value => this.setState({ secondsPerPayment: value })} />
