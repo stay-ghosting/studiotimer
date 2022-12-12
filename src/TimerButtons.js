@@ -1,33 +1,23 @@
 import React, { Component } from "react";
+import './TimerButtons.css'
 
-class TimerButtons extends Component {
-    constructor(props) {
-        super(props);
+const TimerButtons = (props) => {
 
-        this.onTimerPause = props.onTimerPause;
-        this.onTimerPlay = props.onTimerPlay;
-        this.onTimerReset = props.onTimerReset;
-        this.isTimerRunning = props.isTimerRunning;
-        this.hasTimerStarted = props.hasTimerStarted;
-    }
+    const onTimerToggle = props.onTimerToggle;
+    const onTimerReset = props.onTimerReset;
 
-    onTimerToggle = () => {
-        if (this.isTimerRunning) {
-            this.onTimerPause();
-        } else {
-            this.onTimerPlay();
-        }
-    }
+    const isTimerRunning = props.isTimerRunning;
+    const hasTimerStarted = props.hasTimerStarted;
 
-    render() {
+    console.log(props);
 
-        return (
-            <div className='buttons'>
-                <button alt='toggle Timer' onClick={this.onTimerToggle}><img className='button-icon' src={this.isTimerRunning ? process.env.PUBLIC_URL + '/pause.png' : process.env.PUBLIC_URL + '/play.png'} /></button>
-                <button als='stop timer' onClick={this.onTimerReset} disabled={this.hasTimerStarted}><img className='button-icon' src={process.env.PUBLIC_URL + '/stop.png'} /></button>
-            </div>
-        )
-    }
+    return (
+        <div className='buttons'>
+            <button alt='toggle Timer' onClick={onTimerToggle}><img className='button-icon' src={isTimerRunning ? process.env.PUBLIC_URL + '/pause.png' : process.env.PUBLIC_URL + '/play.png'} /></button>
+            <button als='stop timer' onClick={onTimerReset} disabled={!hasTimerStarted}><img className='button-icon' src={process.env.PUBLIC_URL + '/stop.png'} /></button>
+        </div>
+    )
+
 }
 
 export default TimerButtons;

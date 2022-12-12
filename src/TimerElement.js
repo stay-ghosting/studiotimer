@@ -1,92 +1,121 @@
-import { useState } from 'react';
+import { Component, useState } from 'react';
 import TimerForm from './TimerForm';
 import InnerTimer from './InnerTimer';
 import { CircularProgressbarWithChildren } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import './TimerElement.css'
 import TimerButtons from './TimerButtons';
+import './TimerElement.css';
 
 
-function TimerElement() {
+class TimerElement extends Component {
 
-  const [seconds, setSeconds] = useState(0);
-  const [isTimerRunning, setIsTimerRunning] = useState(false);
-  const [confirmed, setConfirmed] = useState(false);
-  const [pricePerinterval, setPricePerinterval] = useState(10.0);
-  const [secondsPerPayment, setSecondsPerPayment] = useState(3600);
-  const [f, setF] = useState(setInterval(_=>_, 1000));
+  constructor() {
+    super();
 
-  function getPercentage() {
-    const percentage = (seconds % secondsPerPayment) / secondsPerPayment
-    return percentage
+    this.f = setInterval(_ => _, 1000);
+
+    this.state = {
+      seconds: 0,
+      isTimerRunning: false,
+      confirmed: false,
+      pricePerinterval: 10.0,
+      secondsPerPayment: 3600,
+    }
+
+    this.progressbarStyle = {
+      path: {
+        stroke: 'rgba(62, 152, 199, 255)',
+        strokeLinecap: 'butt',
+        transition: 'stroke-dashoffset 0.1s ease 0s',
+      },
+      trail: {
+        stroke: '#333',
+        strokeLinecap: 'butt',
+      },
+    }
   }
 
-  function onTimerUpdate() {
+  // const[seconds, setSeconds] = useState(0);
+  // const[isTimerRunning, setIsTimerRunning] = useState(false);
+  // const[confirmed, setConfirmed] = useState(false);
+  // const[pricePerinterval, setPricePerinterval] = useState(10.0);
+  // const[secondsPerPayment, setSecondsPerPayment] = useState(3600);
+  // const[f, setF] = useState(setInterval(_ => _, 1000));
+
+  getPercentage() {
+    const percentage = (this.state.seconds % this.state.secondsPerPayment) / this.state.secondsPerPayment;
+    return percentage;
+  }
+
+  onTimerUpdate() {
     // update timer by 1
-    setSeconds(seconds + 1);
+    this.setState({ seconds: this.state.seconds + 1 });
   }
-  function onTimerPlay() {
+
+  onTimerToggle = () => {
+    if (this.state.isTimerRunning) {
+      this.onTimerPause();
+    } else {
+      this.onTimerPlay();
+    }
+  }
+
+  onTimerPlay() {
     // set the timers intervals
-    setF(setInterval(onTimerUpdate, 1000));
-    // f = setInterval(onTimerUpdate, 1000)
-    setIsTimerRunning(true);
+    if (!this.state.isTimerRunning) {
+      this.setState({ isTimerRunning: true });
+      this.f = setInterval(this.onTimerUpdate.bind(this), 1000);
+    }
+
   }
 
-  function onTimerPause() {
+  onTimerPause() {
     // clear the timer from ticking
-    clearInterval(f);
-    setIsTimerRunning(false);
+    if (this.state.isTimerRunning) {
+      clearInterval(this.f);
+      this.setState({ isTimerRunning: false });
+    }
   }
-  function onTimerReset() {
-    onTimerPause();
+
+  onTimerReset() {
+    this.onTimerPause();
     // resets the timer 
-    setSeconds(0);
+    this.setState({ seconds: 0 })
   }
 
-  const progressbarStyle = {
-    path: {
-      stroke: 'rgba(62, 152, 199, 255)',
-      strokeLinecap: 'butt',
-      transition: 'stroke-dashoffset 0.1s ease 0s',
-    },
-    trail: {
-      stroke: '#333',
-      strokeLinecap: 'butt',
-    },
-  }
-
-  return (
-    <div className='timer'>
-      <CircularProgressbarWithChildren
-        value={getPercentage()}
-        maxValue={1}
-        styles={progressbarStyle}>
-        {
-          confirmed
+  render() {
+    return (
+      <div className='timer'>
+        <CircularProgressbarWithChildren
+          value={this.getPercentage()}
+          maxValue={1}
+          styles={this.progressbarStyle}>
+          {
+            this.state.confirmed
             ?
-            <>
-              <InnerTimer
-                pricePerinterval={pricePerinterval}
-                secondsPerPayment={secondsPerPayment}
-                seconds={seconds} />
+              <>
+                <InnerTimer
+                  pricePerinterval={this.state.pricePerinterval}
+                  secondsPerPayment={this.state.secondsPerPayment}
+                  seconds={this.state.seconds} />
 
-              <TimerButtons
-                onTimerPause={onTimerPause}
-                onTimerPlay={onTimerPlay}
-                onTimerReset={onTimerReset}
-                isTimerRunning={isTimerRunning} 
-                hasTimerStarted={seconds != 0} />
-            </>
-            :
-            <TimerForm
-              setConfirmed={value => setConfirmed(value)}
-              setPricePerinterval={value => setPricePerinterval(value)}
-              setSecondsPerPayment={value => setSecondsPerPayment(value)} />
-        }
+                <TimerButtons
+                  onTimerToggle={this.onTimerToggle.bind(this)}
+                  isTimerRunning={this.state.isTimerRunning}
+                  hasTimerStarted={this.state.seconds !== 0} 
+                  onTimerReset={this.onTimerReset.bind(this)}/>
+              </>
+              :
+              <TimerForm
+                setConfirmed={value => this.setState({ confirmed: value })}
+                setPricePerinterval={value => this.setState({ pricePerinterval: value })}
+                setSecondsPerPayment={value => this.setState({ secondsPerPayment: value })} />
+          }
 
-      </CircularProgressbarWithChildren>
-    </div>
-  );
+        </CircularProgressbarWithChildren>
+      </div>
+    );
+  }
 }
 
 export default TimerElement;

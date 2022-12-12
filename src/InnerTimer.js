@@ -1,29 +1,26 @@
 import React, { Component } from "react";
 import { secToHMS, getTimeFormated } from './tools';
+import './InnerTimer.css'
 
-class InnerTimer extends Component {
-    constructor(props) {
-        super(props);
+function InnerTimer(props) {
 
-        this.pricePerInterval = parseInt(props.pricePerinterval);
-        this.secondsPerPayment = parseFloat(props.secondsPerPayment);
-        this.seconds = parseInt(props.seconds);
-    }
+    const pricePerInterval = parseInt(props.pricePerinterval);
+    const secondsPerPayment = parseInt(props.secondsPerPayment);
+    const seconds = parseInt(props.seconds);
+    // console.log(this.seconds);
 
-    getAccumulativePrice() {
-        const amountOfIntervals = Math.floor(this.seconds / this.secondsPerPayment);
-        const accumulativePrice = (amountOfIntervals * this.pricePerInterval) + this.pricePerInterval;
+    function getAccumulativePrice() {
+        const amountOfIntervals = Math.floor(seconds / secondsPerPayment);
+        const accumulativePrice = (amountOfIntervals * pricePerInterval) + pricePerInterval;
         return accumulativePrice;
     }
-    
-    render() {
-        return (
-            <div className='inner-timer'>
-                <p>{getTimeFormated(this.seconds, true)}</p>
-                <p>{`£${this.getAccumulativePrice()} @ £${this.pricePerInterval}/${getTimeFormated(this.secondsPerPayment, false)}`}</p>
-            </div>
-        )
-    }
+
+    return (
+        <div className='inner-timer'>
+            <p>{getTimeFormated(seconds, true)}</p>
+            <p>{`£${getAccumulativePrice()} @ £${pricePerInterval}/${getTimeFormated(secondsPerPayment, false)}`}</p>
+        </div>
+    )
 }
 
 export default InnerTimer;

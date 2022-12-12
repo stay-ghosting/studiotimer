@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import {HMSTosec, getTimeFormated} from './tools'
+import { HMSTosec, getTimeFormated } from './tools'
 import './TimerForm.css'
 
 
@@ -17,7 +17,7 @@ class TimerForm extends Component {
         m: 0,
         s: 0,
       },
-      pricePerInterval: 10
+      pricePerInterval: 10.0
     }
   }
 
@@ -32,8 +32,8 @@ class TimerForm extends Component {
 
     const timeSeconds = HMSTosec(HMSFloor)
 
-    this.props.setSecondsPerPayment(timeSeconds)
-    this.props.setPricePerinterval(this.state.pricePerInterval)
+    this.props.setSecondsPerPayment(timeSeconds);
+    this.props.setPricePerinterval(this.state.pricePerInterval);
     this.props.setConfirmed(true)
   }
 
@@ -43,20 +43,32 @@ class TimerForm extends Component {
         <p>{`£${this.state.pricePerInterval}/${getTimeFormated(HMSTosec(this.state.time), false)}`}</p>
         <div className='time-fields'>
           <p>£ </p>
-          <input className="input-price" type={'number'} min={0} defaultValue={this.state.pricePerInterval} onChange={event => this.setState({pricePerInterval: event.target.value})}></input>
+          <input
+            className="input-price"
+            type={'number'}
+            min={0}
+            defaultValue={this.state.pricePerInterval}
+            onChange={event => this.setState({ pricePerInterval: event.target.value })}
+          />
+
           <p> every </p>
           <input type='time'
-            onChange={ value => {
-              console.log(value.target.value)
-              const [h, m] = value.target.value.split(':')
-              this.setState({time:
-                {h:h,
-                m:m,
-                s:0,}}
-              )
-            }}
+            onChange={
+              value => {
+                console.log(value.target.value)
+                const [h, m] = value.target.value.split(':')
+                this.setState({
+                  time:
+                  {
+                    h: h,
+                    m: m,
+                    s: 0,
+                  }
+                })
+              }}
+
             defaultValue={`${this.state.time.h.toString().padStart(2, "0")}:${this.state.time.m.toString().padStart(2, "0")}:${this.state.time.s.toString().padStart(2, "0")}`}></input>
-          
+
           <hr />
         </div>
         <button className='open-timer' onClick={() => this.validateInput()}>Start Session</button>
